@@ -7,7 +7,11 @@ const userRouter = require('./routes/userRoutes');
 
 // Middleware
 app.use(express.json());
-app.use(morgon('dev'));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgon('dev'));
+}
+app.use(express.static(`${__dirname}/public`)); // Extracting static files when the endpoint is visited
 
 app.use((req, res, next) => {
   console.log('Hello from middleware');
